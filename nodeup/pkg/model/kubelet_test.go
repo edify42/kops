@@ -25,7 +25,9 @@ import (
 	"testing"
 
 	"fmt"
+
 	"k8s.io/apimachinery/pkg/runtime/schema"
+
 	"k8s.io/kops/nodeup/pkg/distros"
 	"k8s.io/kops/pkg/apis/kops"
 	"k8s.io/kops/pkg/apis/kops/v1alpha2"

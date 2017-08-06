@@ -18,9 +18,10 @@ package protokube
 
 import (
 	"fmt"
+	"strings"
+
 	"k8s.io/apimachinery/pkg/util/intstr"
 	"k8s.io/client-go/pkg/api/v1"
-	"strings"
 )
 
 // BuildEtcdManifest creates the pod spec, based on the etcd cluster

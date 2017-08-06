@@ -19,17 +19,19 @@ package awstasks
 import (
 	"encoding/base64"
 	"fmt"
+	"sort"
+	"strings"
+	"time"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/autoscaling"
 	"github.com/golang/glog"
 	"k8s.io/apimachinery/pkg/util/sets"
+
 	"k8s.io/kops/upup/pkg/fi"
 	"k8s.io/kops/upup/pkg/fi/cloudup/awsup"
 	"k8s.io/kops/upup/pkg/fi/cloudup/cloudformation"
 	"k8s.io/kops/upup/pkg/fi/cloudup/terraform"
-	"sort"
-	"strings"
-	"time"
 )
 
 //go:generate fitask -type=LaunchConfiguration

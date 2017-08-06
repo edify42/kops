@@ -19,11 +19,13 @@ package fitasks
 import (
 	"crypto/x509"
 	"fmt"
-	"github.com/golang/glog"
-	"k8s.io/kops/upup/pkg/fi"
 	"net"
 	"sort"
 	"strings"
+
+	"github.com/golang/glog"
+
+	"k8s.io/kops/upup/pkg/fi"
 )
 
 var wellKnownCertificateTypes = map[string]string{

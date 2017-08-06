@@ -17,9 +17,10 @@ limitations under the License.
 package model
 
 import (
+	"testing"
+
 	"k8s.io/kops/pkg/apis/kops"
 	"k8s.io/kops/pkg/flagbuilder"
-	"testing"
 )
 
 func Test_KubeAPIServer_BuildFlags(t *testing.T) {

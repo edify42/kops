@@ -18,7 +18,9 @@ package edit
 
 import (
 	"bytes"
+
 	"k8s.io/apimachinery/pkg/runtime"
+
 	"k8s.io/kops/pkg/apis/kops"
 	"k8s.io/kops/pkg/diff"
 	"k8s.io/kops/upup/pkg/fi/utils"

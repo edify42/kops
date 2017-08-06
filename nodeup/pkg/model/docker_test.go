@@ -17,10 +17,11 @@ limitations under the License.
 package model
 
 import (
-	"k8s.io/kops/pkg/apis/kops"
-	"k8s.io/kops/upup/pkg/fi"
 	"path"
 	"testing"
+
+	"k8s.io/kops/pkg/apis/kops"
+	"k8s.io/kops/upup/pkg/fi"
 
 	// Register our APIs
 	_ "k8s.io/kops/pkg/apis/kops/install"

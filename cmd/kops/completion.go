@@ -23,9 +23,10 @@ import (
 	"bytes"
 
 	"github.com/spf13/cobra"
-	"k8s.io/kops/cmd/kops/util"
 	"k8s.io/kubernetes/pkg/kubectl/cmd/templates"
 	"k8s.io/kubernetes/pkg/util/i18n"
+
+	"k8s.io/kops/cmd/kops/util"
 )
 
 const boilerPlate = `

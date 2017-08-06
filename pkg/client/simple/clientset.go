@@ -17,12 +17,14 @@ limitations under the License.
 package simple
 
 import (
+	"net/url"
+	"strings"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
 	"k8s.io/kops/pkg/apis/kops"
 	kopsinternalversion "k8s.io/kops/pkg/client/clientset_generated/clientset/typed/kops/internalversion"
 	"k8s.io/kops/util/pkg/vfs"
-	"net/url"
-	"strings"
 )
 
 type Clientset interface {

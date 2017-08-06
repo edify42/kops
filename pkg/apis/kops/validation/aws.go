@@ -17,9 +17,11 @@ limitations under the License.
 package validation
 
 import (
-	"k8s.io/apimachinery/pkg/util/validation/field"
-	"k8s.io/kops/pkg/apis/kops"
 	"strings"
+
+	"k8s.io/apimachinery/pkg/util/validation/field"
+
+	"k8s.io/kops/pkg/apis/kops"
 )
 
 func awsValidateCluster(c *kops.Cluster) field.ErrorList {

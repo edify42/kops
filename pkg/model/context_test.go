@@ -17,9 +17,11 @@ limitations under the License.
 package model
 
 import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/kops/pkg/apis/kops"
 	"testing"
+
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"k8s.io/kops/pkg/apis/kops"
 )
 
 func Test_GetELBName32(t *testing.T) {

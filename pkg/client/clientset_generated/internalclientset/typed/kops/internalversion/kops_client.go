@@ -18,6 +18,7 @@ package internalversion
 
 import (
 	rest "k8s.io/client-go/rest"
+
 	"k8s.io/kops/pkg/client/clientset_generated/internalclientset/scheme"
 )
 

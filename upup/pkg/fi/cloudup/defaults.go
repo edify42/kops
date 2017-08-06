@@ -18,10 +18,12 @@ package cloudup
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/golang/glog"
+
 	"k8s.io/kops/pkg/apis/kops"
 	"k8s.io/kops/util/pkg/vfs"
-	"strings"
 
 	kopsversion "k8s.io/kops"
 )

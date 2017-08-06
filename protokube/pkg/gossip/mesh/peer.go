@@ -19,6 +19,7 @@ package mesh
 import (
 	"github.com/golang/glog"
 	"github.com/weaveworks/mesh"
+
 	"k8s.io/kops/protokube/pkg/gossip"
 )
 

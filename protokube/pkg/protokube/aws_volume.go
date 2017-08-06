@@ -18,19 +18,21 @@ package protokube
 
 import (
 	"fmt"
+	"net"
+	"strings"
+	"sync"
+	"time"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/ec2metadata"
 	"github.com/aws/aws-sdk-go/aws/request"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/golang/glog"
+
 	"k8s.io/kops/protokube/pkg/gossip"
 	gossipaws "k8s.io/kops/protokube/pkg/gossip/aws"
 	"k8s.io/kops/upup/pkg/fi/cloudup/awsup"
-	"net"
-	"strings"
-	"sync"
-	"time"
 )
 
 //const TagNameMasterId = "k8s.io/master/id"

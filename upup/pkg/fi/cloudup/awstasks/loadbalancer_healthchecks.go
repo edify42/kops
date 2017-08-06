@@ -18,6 +18,7 @@ package awstasks
 
 import (
 	"github.com/aws/aws-sdk-go/service/elb"
+
 	"k8s.io/kops/upup/pkg/fi"
 )
 

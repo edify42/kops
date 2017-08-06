@@ -18,8 +18,9 @@ package awstasks
 
 import (
 	"fmt"
-	"k8s.io/kops/upup/pkg/fi"
 	"testing"
+
+	"k8s.io/kops/upup/pkg/fi"
 )
 
 func Test_Subnet_ValidateRequired(t *testing.T) {

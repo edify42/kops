@@ -26,6 +26,7 @@ import (
 
 	"github.com/golang/glog"
 	compute "google.golang.org/api/compute/v0.beta"
+
 	"k8s.io/kops/pkg/diff"
 	"k8s.io/kops/upup/pkg/fi"
 	"k8s.io/kops/upup/pkg/fi/cloudup/gce"

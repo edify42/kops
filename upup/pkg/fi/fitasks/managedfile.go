@@ -18,9 +18,11 @@ package fitasks
 
 import (
 	"fmt"
-	"k8s.io/apimachinery/pkg/util/validation/field"
-	"k8s.io/kops/upup/pkg/fi"
 	"os"
+
+	"k8s.io/apimachinery/pkg/util/validation/field"
+
+	"k8s.io/kops/upup/pkg/fi"
 )
 
 //go:generate fitask -type=ManagedFile

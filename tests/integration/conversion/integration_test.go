@@ -19,15 +19,17 @@ package main
 import (
 	"bytes"
 	"io/ioutil"
+	"path"
+	"strings"
+	"testing"
+
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+
 	"k8s.io/kops/pkg/apis/kops"
 	"k8s.io/kops/pkg/apis/kops/v1alpha1"
 	"k8s.io/kops/pkg/apis/kops/v1alpha2"
 	"k8s.io/kops/pkg/diff"
-	"path"
-	"strings"
-	"testing"
 
 	_ "k8s.io/kops/pkg/apis/kops/install"
 )

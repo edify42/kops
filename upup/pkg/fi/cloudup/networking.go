@@ -22,6 +22,7 @@ import (
 
 	"github.com/blang/semver"
 	"github.com/golang/glog"
+
 	api "k8s.io/kops/pkg/apis/kops"
 	"k8s.io/kops/pkg/apis/kops/util"
 )

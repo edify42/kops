@@ -18,6 +18,7 @@ package federation
 
 import (
 	"fmt"
+
 	"github.com/golang/glog"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"

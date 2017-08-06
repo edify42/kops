@@ -18,15 +18,17 @@ package watchers
 
 import (
 	"fmt"
+	"strings"
+	"time"
+
 	"github.com/golang/glog"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/pkg/api/v1"
+
 	"k8s.io/kops/dns-controller/pkg/dns"
 	"k8s.io/kops/dns-controller/pkg/util"
-	"strings"
-	"time"
 )
 
 // ServiceController watches for services with dns annotations

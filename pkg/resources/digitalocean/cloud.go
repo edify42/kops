@@ -22,8 +22,9 @@ import (
 
 	"github.com/digitalocean/godo"
 	"golang.org/x/oauth2"
-	"k8s.io/kops/pkg/resources/digitalocean/dns"
 	"k8s.io/kubernetes/federation/pkg/dnsprovider"
+
+	"k8s.io/kops/pkg/resources/digitalocean/dns"
 )
 
 // TokenSource implements oauth2.TokenSource

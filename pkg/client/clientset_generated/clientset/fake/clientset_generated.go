@@ -22,6 +22,7 @@ import (
 	"k8s.io/client-go/discovery"
 	fakediscovery "k8s.io/client-go/discovery/fake"
 	"k8s.io/client-go/testing"
+
 	clientset "k8s.io/kops/pkg/client/clientset_generated/clientset"
 	kopsinternalversion "k8s.io/kops/pkg/client/clientset_generated/clientset/typed/kops/internalversion"
 	fakekopsinternalversion "k8s.io/kops/pkg/client/clientset_generated/clientset/typed/kops/internalversion/fake"

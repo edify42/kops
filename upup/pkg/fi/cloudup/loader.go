@@ -27,6 +27,7 @@ import (
 	"text/template"
 
 	"k8s.io/apimachinery/pkg/util/sets"
+
 	api "k8s.io/kops/pkg/apis/kops"
 	"k8s.io/kops/pkg/assets"
 	"k8s.io/kops/upup/pkg/fi"

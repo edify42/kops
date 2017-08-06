@@ -17,8 +17,9 @@ limitations under the License.
 package fi
 
 import (
-	"k8s.io/kops/pkg/apis/kops"
 	"k8s.io/kubernetes/federation/pkg/dnsprovider"
+
+	"k8s.io/kops/pkg/apis/kops"
 )
 
 type Cloud interface {

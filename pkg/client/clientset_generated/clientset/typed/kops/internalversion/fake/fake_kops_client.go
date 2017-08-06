@@ -19,6 +19,7 @@ package fake
 import (
 	rest "k8s.io/client-go/rest"
 	testing "k8s.io/client-go/testing"
+
 	internalversion "k8s.io/kops/pkg/client/clientset_generated/clientset/typed/kops/internalversion"
 )
 

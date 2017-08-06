@@ -19,10 +19,12 @@ package awsup
 import (
 	"fmt"
 
+	"time"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/golang/glog"
+
 	"k8s.io/kops/upup/pkg/fi"
-	"time"
 )
 
 type AWSAPITarget struct {

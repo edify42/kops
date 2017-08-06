@@ -18,14 +18,16 @@ package validation
 
 import (
 	"fmt"
+	"net"
+	"strings"
+
 	"github.com/blang/semver"
 	"k8s.io/apimachinery/pkg/util/validation"
 	"k8s.io/apimachinery/pkg/util/validation/field"
+
 	"k8s.io/kops/pkg/apis/kops"
 	"k8s.io/kops/pkg/apis/kops/util"
 	"k8s.io/kops/upup/pkg/fi"
-	"net"
-	"strings"
 )
 
 // legacy contains validation functions that don't match the apimachinery style

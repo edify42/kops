@@ -18,17 +18,19 @@ package federation
 
 import (
 	"fmt"
+
 	"github.com/golang/glog"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/pkg/api/v1"
-	kopsapi "k8s.io/kops/pkg/apis/kops"
-	"k8s.io/kops/pkg/apis/kops/registry"
-	"k8s.io/kops/pkg/kubeconfig"
 	"k8s.io/kubernetes/federation/apis/federation/v1beta1"
 	"k8s.io/kubernetes/federation/client/clientset_generated/federation_clientset"
 	k8sapiv1 "k8s.io/kubernetes/pkg/api/v1"
+
+	kopsapi "k8s.io/kops/pkg/apis/kops"
+	"k8s.io/kops/pkg/apis/kops/registry"
+	"k8s.io/kops/pkg/kubeconfig"
 )
 
 type FederationCluster struct {

@@ -18,9 +18,11 @@ package resources
 
 import (
 	"context"
+
 	"github.com/golang/glog"
 	"github.com/vmware/govmomi/find"
 	"github.com/vmware/govmomi/object"
+
 	"k8s.io/kops/upup/pkg/fi"
 	"k8s.io/kops/upup/pkg/fi/cloudup/vsphere"
 )

@@ -18,6 +18,7 @@ package distros
 
 import (
 	"github.com/golang/glog"
+
 	"k8s.io/kops/upup/pkg/fi/nodeup/tags"
 )
 

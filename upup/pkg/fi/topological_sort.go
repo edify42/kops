@@ -19,9 +19,11 @@ package fi
 import (
 	"crypto/x509/pkix"
 	"fmt"
-	"github.com/golang/glog"
-	"k8s.io/kops/upup/pkg/fi/utils"
 	"reflect"
+
+	"github.com/golang/glog"
+
+	"k8s.io/kops/upup/pkg/fi/utils"
 )
 
 type HasDependencies interface {

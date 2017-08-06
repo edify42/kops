@@ -18,19 +18,24 @@ package util
 
 import (
 	"fmt"
+
 	"k8s.io/apimachinery/pkg/util/validation/field"
+
 	"k8s.io/kops/pkg/client/simple"
 	"k8s.io/kops/pkg/client/simple/vfsclientset"
 	"k8s.io/kops/util/pkg/vfs"
 
 	"k8s.io/client-go/rest"
+
 	kopsclient "k8s.io/kops/pkg/client/clientset_generated/clientset"
 
 	// Register our APIs
-	"github.com/golang/glog"
-	_ "k8s.io/kops/pkg/apis/kops/install"
 	"net/url"
 	"strings"
+
+	"github.com/golang/glog"
+
+	_ "k8s.io/kops/pkg/apis/kops/install"
 )
 
 type FactoryOptions struct {

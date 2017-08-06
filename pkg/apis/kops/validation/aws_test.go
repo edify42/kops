@@ -17,8 +17,9 @@ limitations under the License.
 package validation
 
 import (
-	"k8s.io/kops/pkg/apis/kops"
 	"testing"
+
+	"k8s.io/kops/pkg/apis/kops"
 )
 
 func TestValidateInstanceGroupSpec(t *testing.T) {

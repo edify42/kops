@@ -19,11 +19,13 @@ package cloudup
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/golang/glog"
-	"k8s.io/kops/pkg/apis/kops"
-	"k8s.io/kops/upup/pkg/fi"
 	"net"
 	"sort"
+
+	"github.com/golang/glog"
+
+	"k8s.io/kops/pkg/apis/kops"
+	"k8s.io/kops/upup/pkg/fi"
 )
 
 // ByZone implements sort.Interface for []*ClusterSubnetSpec based on

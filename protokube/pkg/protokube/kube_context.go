@@ -18,9 +18,10 @@ package protokube
 
 import (
 	"fmt"
+	"sync"
+
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
-	"sync"
 )
 
 type KubernetesContext struct {

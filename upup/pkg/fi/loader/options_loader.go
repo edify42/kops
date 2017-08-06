@@ -20,13 +20,15 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/golang/glog"
-	"k8s.io/kops/upup/pkg/fi/utils"
 	"os"
 	"reflect"
 	"sort"
 	"strings"
 	"text/template"
+
+	"github.com/golang/glog"
+
+	"k8s.io/kops/upup/pkg/fi/utils"
 )
 
 const maxIterations = 10

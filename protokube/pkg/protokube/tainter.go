@@ -19,6 +19,7 @@ package protokube
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/golang/glog"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"

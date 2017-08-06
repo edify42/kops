@@ -21,13 +21,7 @@ package vspheretasks
 import (
 	"bytes"
 	"fmt"
-	"github.com/golang/glog"
-	"github.com/pborman/uuid"
 	"io/ioutil"
-	"k8s.io/kops/pkg/apis/kops"
-	"k8s.io/kops/pkg/model"
-	"k8s.io/kops/upup/pkg/fi"
-	"k8s.io/kops/upup/pkg/fi/cloudup/vsphere"
 	"net"
 	"net/url"
 	"os"
@@ -35,6 +29,14 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+
+	"github.com/golang/glog"
+	"github.com/pborman/uuid"
+
+	"k8s.io/kops/pkg/apis/kops"
+	"k8s.io/kops/pkg/model"
+	"k8s.io/kops/upup/pkg/fi"
+	"k8s.io/kops/upup/pkg/fi/cloudup/vsphere"
 )
 
 // AttachISO represents the cloud-init ISO file attached to a VM on vSphere cloud.

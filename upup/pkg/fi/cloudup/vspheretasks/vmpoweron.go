@@ -20,6 +20,7 @@ package vspheretasks
 
 import (
 	"github.com/golang/glog"
+
 	"k8s.io/kops/upup/pkg/fi"
 	"k8s.io/kops/upup/pkg/fi/cloudup/vsphere"
 )

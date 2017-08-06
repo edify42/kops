@@ -18,6 +18,7 @@ package local
 
 import (
 	"k8s.io/apimachinery/pkg/util/sets"
+
 	"k8s.io/kops/upup/pkg/fi"
 )
 

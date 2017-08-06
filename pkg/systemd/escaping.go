@@ -19,8 +19,9 @@ package systemd
 import (
 	"bytes"
 	"encoding/hex"
-	"github.com/golang/glog"
 	"strings"
+
+	"github.com/golang/glog"
 )
 
 func EscapeCommand(argv []string) string {

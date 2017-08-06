@@ -18,11 +18,12 @@ package cloudup
 
 import (
 	"fmt"
+	"strings"
+	"testing"
+
 	api "k8s.io/kops/pkg/apis/kops"
 	"k8s.io/kops/pkg/apis/kops/validation"
 	"k8s.io/kops/upup/pkg/fi"
-	"strings"
-	"testing"
 )
 
 func TestDeepValidate_OK(t *testing.T) {

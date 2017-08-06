@@ -25,10 +25,11 @@ import (
 	compute "google.golang.org/api/compute/v0.beta"
 
 	"k8s.io/apimachinery/pkg/util/sets"
+	"k8s.io/kubernetes/federation/pkg/dnsprovider"
+
 	"k8s.io/kops/pkg/dns"
 	"k8s.io/kops/upup/pkg/fi"
 	"k8s.io/kops/upup/pkg/fi/cloudup/gce"
-	"k8s.io/kubernetes/federation/pkg/dnsprovider"
 )
 
 type gceListFn func() ([]*ResourceTracker, error)

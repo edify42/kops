@@ -18,15 +18,17 @@ package awstasks
 
 import (
 	"bytes"
-	"github.com/aws/aws-sdk-go/service/ec2"
-	"k8s.io/kops/cloudmock/aws/mockec2"
-	"k8s.io/kops/pkg/assets"
-	"k8s.io/kops/upup/pkg/fi"
-	"k8s.io/kops/upup/pkg/fi/cloudup/awsup"
 	"os"
 	"reflect"
 	"testing"
 	"time"
+
+	"github.com/aws/aws-sdk-go/service/ec2"
+
+	"k8s.io/kops/cloudmock/aws/mockec2"
+	"k8s.io/kops/pkg/assets"
+	"k8s.io/kops/upup/pkg/fi"
+	"k8s.io/kops/upup/pkg/fi/cloudup/awsup"
 )
 
 const defaultDeadline = 2 * time.Second

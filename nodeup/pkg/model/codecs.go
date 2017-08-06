@@ -19,6 +19,7 @@ package model
 import (
 	"bytes"
 	"fmt"
+
 	"github.com/golang/glog"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/pkg/api"

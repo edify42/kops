@@ -21,6 +21,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	rest "k8s.io/client-go/rest"
+
 	kops "k8s.io/kops/pkg/apis/kops"
 	scheme "k8s.io/kops/pkg/client/clientset_generated/clientset/scheme"
 )

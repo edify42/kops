@@ -17,17 +17,19 @@ limitations under the License.
 package testutils
 
 import (
+	"io/ioutil"
+	"os"
+	"testing"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/aws/aws-sdk-go/service/route53"
 	"github.com/golang/glog"
-	"io/ioutil"
+
 	"k8s.io/kops/cloudmock/aws/mockec2"
 	"k8s.io/kops/cloudmock/aws/mockroute53"
 	"k8s.io/kops/upup/pkg/fi/cloudup/awsup"
 	"k8s.io/kops/util/pkg/vfs"
-	"os"
-	"testing"
 )
 
 type IntegrationTestHarness struct {

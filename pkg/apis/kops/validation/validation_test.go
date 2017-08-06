@@ -17,11 +17,13 @@ limitations under the License.
 package validation
 
 import (
+	"testing"
+
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apimachinery/pkg/util/validation"
 	"k8s.io/apimachinery/pkg/util/validation/field"
+
 	"k8s.io/kops/pkg/apis/kops"
-	"testing"
 )
 
 func Test_Validate_DNS(t *testing.T) {

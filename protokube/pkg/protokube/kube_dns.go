@@ -17,9 +17,11 @@ limitations under the License.
 package protokube
 
 import (
-	"github.com/golang/glog"
-	"k8s.io/kops/dns-controller/pkg/dns"
 	"time"
+
+	"github.com/golang/glog"
+
+	"k8s.io/kops/dns-controller/pkg/dns"
 )
 
 const defaultTTL = time.Minute

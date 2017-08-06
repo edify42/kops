@@ -21,17 +21,19 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"fmt"
-	"github.com/golang/glog"
-	"golang.org/x/net/context"
-	"google.golang.org/api/googleapi"
-	storage "google.golang.org/api/storage/v1"
 	"io/ioutil"
-	"k8s.io/kops/util/pkg/hashing"
 	"net/http"
 	"os"
 	"path"
 	"strings"
 	"sync"
+
+	"github.com/golang/glog"
+	"golang.org/x/net/context"
+	"google.golang.org/api/googleapi"
+	storage "google.golang.org/api/storage/v1"
+
+	"k8s.io/kops/util/pkg/hashing"
 )
 
 // GSPath is a vfs path for Google Cloud Storage

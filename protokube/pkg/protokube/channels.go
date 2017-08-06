@@ -18,10 +18,11 @@ package protokube
 
 import (
 	"fmt"
-	"github.com/golang/glog"
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/golang/glog"
 )
 
 func execChannels(args ...string) (string, error) {

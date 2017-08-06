@@ -23,10 +23,11 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"k8s.io/kops/cmd/kops/util"
-	"k8s.io/kops/pkg/apis/kops/registry"
 	"k8s.io/kubernetes/pkg/kubectl/cmd/templates"
 	"k8s.io/kubernetes/pkg/util/i18n"
+
+	"k8s.io/kops/cmd/kops/util"
+	"k8s.io/kops/pkg/apis/kops/registry"
 )
 
 var (

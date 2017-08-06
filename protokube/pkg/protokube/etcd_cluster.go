@@ -19,13 +19,14 @@ package protokube
 import (
 	"bytes"
 	"fmt"
-	"github.com/golang/glog"
 	"io/ioutil"
-	"k8s.io/apimachinery/pkg/api/resource"
 	"os"
 	"path"
 	"strings"
 	"time"
+
+	"github.com/golang/glog"
+	"k8s.io/apimachinery/pkg/api/resource"
 )
 
 type EtcdClusterSpec struct {

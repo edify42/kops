@@ -19,6 +19,7 @@ package dockertasks
 import (
 	"bufio"
 	"fmt"
+
 	"github.com/docker/engine-api/client"
 	"github.com/docker/engine-api/types"
 	"github.com/golang/glog"

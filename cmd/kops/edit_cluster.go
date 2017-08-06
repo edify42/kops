@@ -27,6 +27,10 @@ import (
 
 	"github.com/spf13/cobra"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/kubernetes/pkg/kubectl/cmd/templates"
+	util_editor "k8s.io/kubernetes/pkg/kubectl/cmd/util/editor"
+	"k8s.io/kubernetes/pkg/util/i18n"
+
 	"k8s.io/kops/cmd/kops/util"
 	api "k8s.io/kops/pkg/apis/kops"
 	"k8s.io/kops/pkg/apis/kops/registry"
@@ -34,9 +38,6 @@ import (
 	"k8s.io/kops/pkg/assets"
 	"k8s.io/kops/pkg/edit"
 	"k8s.io/kops/upup/pkg/fi/cloudup"
-	"k8s.io/kubernetes/pkg/kubectl/cmd/templates"
-	util_editor "k8s.io/kubernetes/pkg/kubectl/cmd/util/editor"
-	"k8s.io/kubernetes/pkg/util/i18n"
 )
 
 type EditClusterOptions struct {

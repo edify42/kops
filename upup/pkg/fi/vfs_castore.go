@@ -24,14 +24,16 @@ import (
 	"crypto/x509"
 	"crypto/x509/pkix"
 	"fmt"
-	"github.com/golang/glog"
-	"golang.org/x/crypto/ssh"
-	"k8s.io/kops/util/pkg/vfs"
 	"math/big"
 	"os"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/golang/glog"
+	"golang.org/x/crypto/ssh"
+
+	"k8s.io/kops/util/pkg/vfs"
 )
 
 type VFSCAStore struct {

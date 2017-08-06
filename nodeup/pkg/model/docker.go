@@ -22,6 +22,7 @@ import (
 
 	"github.com/blang/semver"
 	"github.com/golang/glog"
+
 	"k8s.io/kops/nodeup/pkg/distros"
 	"k8s.io/kops/nodeup/pkg/model/resources"
 	"k8s.io/kops/pkg/flagbuilder"

@@ -23,6 +23,7 @@ import (
 	"time"
 
 	"github.com/golang/glog"
+
 	"k8s.io/kops"
 	"k8s.io/kops/nodeup/pkg/bootstrap"
 	"k8s.io/kops/upup/models"

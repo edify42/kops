@@ -34,9 +34,7 @@ for package in packages:
     continue
   paths.append(package)
 
-print("packages %s" % paths)
-
-process = subprocess.Popen(['goimports', '-l'] + paths, stdout=subprocess.PIPE, cwd=path.join(gopath, 'src'))
+process = subprocess.Popen(['goimports', '-l', '-local k8s.io/kops'] + paths, stdout=subprocess.PIPE, cwd=path.join(gopath, 'src'))
 stdout, stderr = process.communicate()
 
 if stdout != "":

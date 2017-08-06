@@ -19,16 +19,18 @@ package components
 import (
 	"encoding/binary"
 	"fmt"
+	"math/big"
+	"net"
+	"strings"
+
 	"github.com/blang/semver"
 	"github.com/golang/glog"
+
 	"k8s.io/kops/pkg/apis/kops"
 	"k8s.io/kops/pkg/apis/kops/util"
 	"k8s.io/kops/pkg/assets"
 	"k8s.io/kops/upup/pkg/fi/cloudup/gce"
 	"k8s.io/kops/util/pkg/vfs"
-	"math/big"
-	"net"
-	"strings"
 )
 
 // OptionsContext is the context object for options builders

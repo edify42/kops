@@ -18,18 +18,20 @@ package cloudup
 
 import (
 	"fmt"
+	"net"
+	"os"
+	"strings"
+
 	"github.com/golang/glog"
+	"k8s.io/kubernetes/federation/pkg/dnsprovider"
+	"k8s.io/kubernetes/federation/pkg/dnsprovider/rrstype"
+
 	"k8s.io/kops/dns-controller/pkg/dns"
 	"k8s.io/kops/pkg/apis/kops"
 	kopsdns "k8s.io/kops/pkg/dns"
 	"k8s.io/kops/pkg/featureflag"
 	"k8s.io/kops/pkg/model"
 	"k8s.io/kops/upup/pkg/fi"
-	"k8s.io/kubernetes/federation/pkg/dnsprovider"
-	"k8s.io/kubernetes/federation/pkg/dnsprovider/rrstype"
-	"net"
-	"os"
-	"strings"
 )
 
 const (

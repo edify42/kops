@@ -18,10 +18,11 @@ package registry
 
 import (
 	"fmt"
-	"k8s.io/kops/upup/pkg/fi/utils"
-	"k8s.io/kops/util/pkg/vfs"
 	"os"
 	"strings"
+
+	"k8s.io/kops/upup/pkg/fi/utils"
+	"k8s.io/kops/util/pkg/vfs"
 )
 
 func ReadConfigDeprecated(configPath vfs.Path, config interface{}) error {

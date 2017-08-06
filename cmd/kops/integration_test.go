@@ -22,11 +22,7 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/pem"
-	"golang.org/x/crypto/ssh"
 	"io/ioutil"
-	"k8s.io/kops/cmd/kops/util"
-	"k8s.io/kops/pkg/diff"
-	"k8s.io/kops/pkg/testutils"
 	"os"
 	"path"
 	"reflect"
@@ -34,6 +30,12 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	"golang.org/x/crypto/ssh"
+
+	"k8s.io/kops/cmd/kops/util"
+	"k8s.io/kops/pkg/diff"
+	"k8s.io/kops/pkg/testutils"
 )
 
 // TestMinimal runs the test on a minimum configuration, similar to kops create cluster minimal.example.com --zones us-west-1a

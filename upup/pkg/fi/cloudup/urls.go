@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/golang/glog"
+
 	"k8s.io/kops"
 )
 

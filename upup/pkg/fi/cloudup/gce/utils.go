@@ -17,8 +17,9 @@ limitations under the License.
 package gce
 
 import (
-	"google.golang.org/api/googleapi"
 	"strings"
+
+	"google.golang.org/api/googleapi"
 )
 
 func IsNotFound(err error) bool {
