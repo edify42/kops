@@ -453,7 +453,7 @@ verify-gendocs: kops
 # verify-package has to be after verify-gendoc, because with .gitignore for federation bindata
 # it bombs in travis. verify-gendoc generates the bindata file.
 .PHONY: ci
-ci: govet verify-gofmt verify-boilerplate nodeup-gocode examples test | verify-gendocs verify-packages
+ci: govet verify-gofmt verify-goimports verify-boilerplate nodeup-gocode examples test | verify-gendocs verify-packages
 	echo "Done!"
 
 # --------------------------------------------------
