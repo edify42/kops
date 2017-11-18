@@ -45,62 +45,48 @@ func (b *PKIModelBuilder) Build(c *fi.ModelBuilderContext) error {
 	}
 	c.AddTask(defaultCA)
 
-	{
+	c.AddTask(&fitasks.Keypair{
+		Name:      fi.String("kubelet"),
+		Lifecycle: b.Lifecycle,
+		Subject:   "o=" + user.NodesGroup + ",cn=kubelet",
+		Type:      "client",
+		Signer:    defaultCA,
+	})
 
-		t := &fitasks.Keypair{
-			Name:      fi.String("kubelet"),
-			Lifecycle: b.Lifecycle,
+	// Generate a kubelet client certificate for api to speak securely to kubelets. This change was first
+	// introduced in https://github.com/kubernetes/kops/pull/2831 where server.cert/key were used. With kubernetes >= 1.7
+	// the certificate usage is being checked (obviously the above was server not client certificate) and so now fails
+	c.AddTask(&fitasks.Keypair{
+		Name:      fi.String("kubelet-api"),
+		Lifecycle: b.Lifecycle,
+		Subject:   "o=" + user.NodesGroup + ",cn=kubelet-api",
+		Type:      "client",
+		Signer:    defaultCA,
+	})
 
-			Subject: "o=" + user.NodesGroup + ",cn=kubelet",
-			Type:    "client",
-			Signer:  defaultCA,
-		}
-		c.AddTask(t)
-	}
-	{
-		// Generate a kubelet client certificate for api to speak securely to kubelets. This change was first
-		// introduced in https://github.com/kubernetes/kops/pull/2831 where server.cert/key were used. With kubernetes >= 1.7
-		// the certificate usage is being checked (obviously the above was server not client certificate) and so now fails
-		c.AddTask(&fitasks.Keypair{
-			Name:      fi.String("kubelet-api"),
-			Lifecycle: b.Lifecycle,
-			Subject:   "cn=kubelet-api",
-			Type:      "client",
-			Signer:    defaultCA,
-		})
-	}
-	{
-		t := &fitasks.Keypair{
-			Name:      fi.String("kube-scheduler"),
-			Lifecycle: b.Lifecycle,
-			Subject:   "cn=" + user.KubeScheduler,
-			Type:      "client",
-			Signer:    defaultCA,
-		}
-		c.AddTask(t)
-	}
+	c.AddTask(&fitasks.Keypair{
+		Name:      fi.String("kube-scheduler"),
+		Lifecycle: b.Lifecycle,
+		Subject:   "cn=" + user.KubeScheduler,
+		Type:      "client",
+		Signer:    defaultCA,
+	})
 
-	{
-		t := &fitasks.Keypair{
-			Name:      fi.String("kube-proxy"),
-			Lifecycle: b.Lifecycle,
-			Subject:   "cn=" + user.KubeProxy,
-			Type:      "client",
-			Signer:    defaultCA,
-		}
-		c.AddTask(t)
-	}
+	c.AddTask(&fitasks.Keypair{
+		Name:      fi.String("kube-proxy"),
+		Lifecycle: b.Lifecycle,
+		Subject:   "cn=" + user.KubeProxy,
+		Type:      "client",
+		Signer:    defaultCA,
+	})
 
-	{
-		t := &fitasks.Keypair{
-			Name:      fi.String("kube-controller-manager"),
-			Lifecycle: b.Lifecycle,
-			Subject:   "cn=" + user.KubeControllerManager,
-			Type:      "client",
-			Signer:    defaultCA,
-		}
-		c.AddTask(t)
-	}
+	c.AddTask(&fitasks.Keypair{
+		Name:      fi.String("kube-controller-manager"),
+		Lifecycle: b.Lifecycle,
+		Subject:   "cn=" + user.KubeControllerManager,
+		Type:      "client",
+		Signer:    defaultCA,
+	})
 
 	// check if we need to generate certificates for etcd peers certificates from a different CA?
 	// @question i think we should use another KeyStore for this, perhaps registering a EtcdKeyStore given
@@ -108,92 +94,77 @@ func (b *PKIModelBuilder) Build(c *fi.ModelBuilderContext) error {
 	// For clients assuming we are using etcdv3 is can switch on user authentication and map the common names for auth.
 	if b.UseEtcdTLS() {
 		alternativeNames := []string{fmt.Sprintf("*.internal.%s", b.ClusterName()), "localhost", "127.0.0.1"}
-		{
-			// @question should wildcard's be here instead of generating per node. If we ever provide the
-			// ability to resize the master, this will become a blocker
-			c.AddTask(&fitasks.Keypair{
-				AlternateNames: alternativeNames,
-				Lifecycle:      b.Lifecycle,
-				Name:           fi.String("etcd"),
-				Subject:        "cn=etcd",
-				Type:           "server",
-				Signer:         defaultCA,
-			})
-		}
-		{
-			c.AddTask(&fitasks.Keypair{
-				Name:      fi.String("etcd-client"),
-				Lifecycle: b.Lifecycle,
-				Subject:   "cn=etcd-client",
-				Type:      "client",
-				Signer:    defaultCA,
-			})
-		}
+		// @question should wildcard's be here instead of generating per node. If we ever provide the
+		// ability to resize the master, this will become a blocker
+		c.AddTask(&fitasks.Keypair{
+			AlternateNames: alternativeNames,
+			Lifecycle:      b.Lifecycle,
+			Name:           fi.String("etcd"),
+			Subject:        "cn=etcd",
+			Type:           "server",
+			Signer:         defaultCA,
+		})
+
+		c.AddTask(&fitasks.Keypair{
+			Name:      fi.String("etcd-client"),
+			Lifecycle: b.Lifecycle,
+			Subject:   "cn=etcd-client",
+			Type:      "client",
+			Signer:    defaultCA,
+		})
 	}
 
 	if b.KopsModelContext.Cluster.Spec.Networking.Kuberouter != nil {
-		t := &fitasks.Keypair{
+		c.AddTask(&fitasks.Keypair{
 			Name:    fi.String("kube-router"),
 			Subject: "cn=" + "system:kube-router",
 			Type:    "client",
 			Signer:  defaultCA,
-		}
-		c.AddTask(t)
+		})
 	}
 
-	{
-		t := &fitasks.Keypair{
-			Name:      fi.String("kubecfg"),
-			Lifecycle: b.Lifecycle,
-			Subject:   "o=" + user.SystemPrivilegedGroup + ",cn=kubecfg",
-			Type:      "client",
-			Signer:    defaultCA,
-		}
-		c.AddTask(t)
-	}
+	c.AddTask(&fitasks.Keypair{
+		Name:      fi.String("kubecfg"),
+		Lifecycle: b.Lifecycle,
+		Subject:   "o=" + user.SystemPrivilegedGroup + ",cn=kubecfg",
+		Type:      "client",
+		Signer:    defaultCA,
+	})
 
-	{
-		t := &fitasks.Keypair{
-			Name:      fi.String("apiserver-proxy-client"),
-			Lifecycle: b.Lifecycle,
-			Subject:   "cn=apiserver-proxy-client",
-			Type:      "client",
-			Signer:    defaultCA,
-		}
-		c.AddTask(t)
-	}
+	c.AddTask(&fitasks.Keypair{
+		Name:      fi.String("apiserver-proxy-client"),
+		Lifecycle: b.Lifecycle,
+		Subject:   "cn=apiserver-proxy-client",
+		Type:      "client",
+		Signer:    defaultCA,
+	})
 
-	{
-		aggregatorCA := &fitasks.Keypair{
-			Name:      fi.String("apiserver-aggregator-ca"),
-			Lifecycle: b.Lifecycle,
-			Subject:   "cn=apiserver-aggregator-ca",
-			Type:      "ca",
-		}
-		c.AddTask(aggregatorCA)
-
-		aggregator := &fitasks.Keypair{
-			Name:      fi.String("apiserver-aggregator"),
-			Lifecycle: b.Lifecycle,
-			// Must match RequestheaderAllowedNames
-			Subject: "cn=aggregator",
-			Type:    "client",
-			Signer:  aggregatorCA,
-		}
-		c.AddTask(aggregator)
+	aggregatorCA := &fitasks.Keypair{
+		Name:      fi.String("apiserver-aggregator-ca"),
+		Lifecycle: b.Lifecycle,
+		Subject:   "cn=apiserver-aggregator-ca",
+		Type:      "ca",
 	}
+	c.AddTask(aggregatorCA)
 
-	{
-		// Used by e.g. protokube
-		t := &fitasks.Keypair{
-			Name:      fi.String("kops"),
-			Lifecycle: b.Lifecycle,
-			Subject:   "o=" + user.SystemPrivilegedGroup + ",cn=kops",
-			Type:      "client",
-			Signer:    defaultCA,
-		}
-		c.AddTask(t)
+	aggregator := &fitasks.Keypair{
+		Name:      fi.String("apiserver-aggregator"),
+		Lifecycle: b.Lifecycle,
+		// Must match RequestheaderAllowedNames
+		Subject: "cn=aggregator",
+		Type:    "client",
+		Signer:  aggregatorCA,
 	}
+	c.AddTask(aggregator)
+
+	// Used by e.g. protokube
+	c.AddTask(&fitasks.Keypair{
+		Name:      fi.String("kops"),
+		Lifecycle: b.Lifecycle,
+		Subject:   "o=" + user.SystemPrivilegedGroup + ",cn=kops",
+		Type:      "client",
+		Signer:    defaultCA,
+	})
 
 	{
 		// A few names used from inside the cluster, which all resolve the same based on our default suffixes
@@ -221,15 +192,14 @@ func (b *PKIModelBuilder) Build(c *fi.ModelBuilderContext) error {
 		// We also want to be able to reference it locally via https://127.0.0.1
 		alternateNames = append(alternateNames, "127.0.0.1")
 
-		t := &fitasks.Keypair{
+		c.AddTask(&fitasks.Keypair{
 			Name:           fi.String("master"),
 			Lifecycle:      b.Lifecycle,
 			Subject:        "cn=kubernetes-master",
 			Type:           "server",
 			AlternateNames: alternateNames,
 			Signer:         defaultCA,
-		}
-		c.AddTask(t)
+		})
 	}
 
 	// @@ The following are deprecated for > 1.6 and should be dropped at the appropreciate time

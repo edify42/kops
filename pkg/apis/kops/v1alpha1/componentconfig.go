@@ -18,12 +18,21 @@ package v1alpha1
 
 import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+const (
+	// KubeletAuthorizationModeWebhook indicates we should use a webhook mode
+	KubeletAuthorizationModeWebhook = "Webhook"
+	// KubeletAuthorizationModeAlwaysAllow indicate permit all authenticated users
+	KubeletAuthorizationModeAlwaysAllow = "AlwaysAllow"
+)
+
 // KubeletConfigSpec defines the kubelet configuration
 type KubeletConfigSpec struct {
 	// APIServers is not used for clusters version 1.6 and later - flag removed
 	APIServers string `json:"apiServers,omitempty" flag:"api-servers"`
 	// AnonymousAuth permits you to control auth to the kubelet api
 	AnonymousAuth *bool `json:"anonymousAuth,omitempty" flag:"anonymous-auth"`
+	// AuthorizationMode is the authorization mode of the kubelet
+	AuthorizationMode string `json:"authorizationMode,omitempty" flag:"authorization-mode"`
 	// ClientCAFile is the path to a CA certificate
 	ClientCAFile string `json:"clientCaFile,omitempty" flag:"client-ca-file"`
 	// KubeconfigPath is the path of kubeconfig for the kubelet

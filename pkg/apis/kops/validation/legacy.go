@@ -362,6 +362,10 @@ func ValidateCluster(c *kops.Cluster, strict bool) *field.Error {
 	if c.Spec.Kubelet != nil {
 		kubeletPath := fieldSpec.Child("Kubelet")
 
+		if err := validateKubeletAuthorizationMode(c.Spec.Kubelet, kubeletPath); err != nil {
+			return err
+		}
+
 		if kubernetesRelease.GTE(semver.MustParse("1.6.0")) {
 			// Flag removed in 1.6
 			if c.Spec.Kubelet.APIServers != "" {
@@ -384,6 +388,10 @@ func ValidateCluster(c *kops.Cluster, strict bool) *field.Error {
 	// MasterKubelet
 	if c.Spec.MasterKubelet != nil {
 		masterKubeletPath := fieldSpec.Child("MasterKubelet")
+
+		if err := validateKubeletAuthorizationMode(c.Spec.MasterKubelet, masterKubeletPath); err != nil {
+			return err
+		}
 
 		if kubernetesRelease.GTE(semver.MustParse("1.6.0")) {
 			// Flag removed in 1.6
@@ -477,6 +485,23 @@ func ValidateCluster(c *kops.Cluster, strict bool) *field.Error {
 
 	if errs := newValidateCluster(c); len(errs) != 0 {
 		return errs[0]
+	}
+
+	return nil
+}
+
+// validateKubeletAuthorizationMode validate the kubelet authorization mode
+func validateKubeletAuthorizationMode(spec *kops.KubeletConfigSpec, fld *field.Path) *field.Error {
+	if spec.AuthorizationMode != "" {
+		switch spec.AuthorizationMode {
+		case kops.KubeletAuthorizationModeWebhook, kops.KubeletAuthorizationModeAlwaysAllow:
+		default:
+			return field.Invalid(fld.Child("authorizationMode"), spec.AuthorizationMode, "invalid kubelet authorization mode")
+		}
+
+		if spec.AnonymousAuth != nil && *spec.AnonymousAuth == true {
+			return field.Invalid(fld.Child("anonymousAuth"), true, "anonymousAuth is true, doesnt make sense to set an authorization mode")
+		}
 	}
 
 	return nil
