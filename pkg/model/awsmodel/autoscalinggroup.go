@@ -38,14 +38,14 @@ const (
 type AutoscalingGroupModelBuilder struct {
 	*AWSModelContext
 
-	BootstrapScript *model.BootstrapScript
-	Lifecycle       *fi.Lifecycle
-
+	BootstrapScript   *model.BootstrapScript
+	Lifecycle         *fi.Lifecycle
 	SecurityLifecycle *fi.Lifecycle
 }
 
 var _ fi.ModelBuilder = &AutoscalingGroupModelBuilder{}
 
+// Build is responsible for filling the in the aws tasks required to buikd the ASG's
 func (b *AutoscalingGroupModelBuilder) Build(c *fi.ModelBuilderContext) error {
 	var err error
 	for _, ig := range b.InstanceGroups {
@@ -199,10 +199,10 @@ func (b *AutoscalingGroupModelBuilder) Build(c *fi.ModelBuilderContext) error {
 
 				Granularity: s("1Minute"),
 				Metrics: []string{
-					"GroupMinSize",
-					"GroupMaxSize",
 					"GroupDesiredCapacity",
 					"GroupInServiceInstances",
+					"GroupMaxSize",
+					"GroupMinSize",
 					"GroupPendingInstances",
 					"GroupStandbyInstances",
 					"GroupTerminatingInstances",

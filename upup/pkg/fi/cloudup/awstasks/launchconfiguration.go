@@ -24,15 +24,16 @@ import (
 	"strings"
 	"time"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/autoscaling"
-	"github.com/golang/glog"
-	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/kops/pkg/featureflag"
 	"k8s.io/kops/upup/pkg/fi"
 	"k8s.io/kops/upup/pkg/fi/cloudup/awsup"
 	"k8s.io/kops/upup/pkg/fi/cloudup/cloudformation"
 	"k8s.io/kops/upup/pkg/fi/cloudup/terraform"
+
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/service/autoscaling"
+	"github.com/golang/glog"
+	"k8s.io/apimachinery/pkg/util/sets"
 )
 
 // defaultRetainLaunchConfigurationCount is the number of launch configurations (matching the name prefix) that we should
@@ -47,37 +48,43 @@ func RetainLaunchConfigurationCount() int {
 	return defaultRetainLaunchConfigurationCount
 }
 
-//go:generate fitask -type=LaunchConfiguration
+// LaunchConfiguration is the specification for a launch configuration
 type LaunchConfiguration struct {
-	Name      *string
+	// Name is the name of the configuration
+	Name *string
+	// Lifecycle is the resource lifecycle
 	Lifecycle *fi.Lifecycle
 
-	UserData *fi.ResourceHolder
-
-	ImageID            *string
-	InstanceType       *string
-	SSHKey             *SSHKey
-	SecurityGroups     []*SecurityGroup
-	AssociatePublicIP  *bool
+	// AssociatePublicIP indicates if a public ip address is assigned to instabces
+	AssociatePublicIP *bool
+	// IAMInstanceProfile is the IAM profile to assign to the nodes
 	IAMInstanceProfile *IAMInstanceProfile
+	// ID is the launch configuration name
+	ID *string
+	// ImageID is the AMI to use for the instances
+	ImageID *string
+	// InstanceMonitoring indicates if monitoring is enabled
 	InstanceMonitoring *bool
-
-	// RootVolumeSize is the size of the EBS root volume to use, in GB
-	RootVolumeSize *int64
-	// RootVolumeType is the type of the EBS root volume to use (e.g. gp2)
-	RootVolumeType *string
+	// InstanceType is the machine type to use
+	InstanceType *string
 	// If volume type is io1, then we need to specify the number of Iops.
 	RootVolumeIops *int64
 	// RootVolumeOptimization enables EBS optimization for an instance
 	RootVolumeOptimization *bool
-
+	// RootVolumeSize is the size of the EBS root volume to use, in GB
+	RootVolumeSize *int64
+	// RootVolumeType is the type of the EBS root volume to use (e.g. gp2)
+	RootVolumeType *string
+	// SSHKey is the ssh key for the instances
+	SSHKey *SSHKey
+	// SecurityGroups is a list of security group associated
+	SecurityGroups []*SecurityGroup
 	// SpotPrice is set to the spot-price bid if this is a spot pricing request
 	SpotPrice string
-
-	ID *string
-
 	// Tenancy. Can be either default or dedicated.
 	Tenancy *string
+	// UserData is the user data configuration
+	UserData *fi.ResourceHolder
 }
 
 var _ fi.CompareWithID = &LaunchConfiguration{}

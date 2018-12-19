@@ -78,6 +78,12 @@ func ValidateInstanceGroup(g *kops.InstanceGroup) error {
 		}
 	}
 
+	if g.Spec.FleetSpec != nil {
+		if errs := validateFileAssetSpec(g.Spec.FleetSpec); len(errs) > 0 {
+			return errs.ToAggregate()
+		}
+	}
+
 	if len(g.Spec.AdditionalUserData) > 0 {
 		for _, UserDataInfo := range g.Spec.AdditionalUserData {
 			err := validateExtraUserData(&UserDataInfo)
@@ -92,6 +98,37 @@ func ValidateInstanceGroup(g *kops.InstanceGroup) error {
 	}
 
 	return nil
+}
+
+// validateInstanceGroupFleet is responsble for checking the attribute of a fleet spec
+func validateInstanceGroupFleet(ig *kops.InstanceGroupFleetSpec) field.ErrorList {
+	var errs field.ErrorList
+
+	if ig.EC2Fleet == nil {
+		errs = append(errs, field.Invalid(field.NewPath("ec2Fleet"), nil, "you have not specified a ec2 fleet specification"))
+		// no point continuing from here
+		return errs
+	}
+	path := field.NewPath("ec2Fleet")
+
+	spec := ig.EC2Fleet
+	if len(spec.InstancesTypes) <= 0 {
+		errs = append(errs, field.Invalid(path.Child("instances"), spec.InstancesTypes, "you have specified any instance types for fleet"))
+	} else {
+		// @step: check the instances are validate
+		for i, x := range spec.InstancesTypes {
+			errs = append(errs, awsValidateMachineType(path.Child("instances").Index(i).Child("instanceType"), x.InstanceType)...)
+			if fi.Int64Value(x.Weight) < 0 {
+				errs = append(errs, field.Invalid(path.Child("instances").Index(i).Child("instanceType"), x.Weight, "invalid instance weight"))
+			}
+		}
+	}
+
+	if fi.Float64Value(spec.MaxPrice) < 0 {
+		errs = append(errs, field.Invalid(path.Child("maxPrice"), spec.MaxPrice, "max price cannot be less than zero"))
+	}
+
+	return errs
 }
 
 // CrossValidateInstanceGroup performs validation of the instance group, including that it is consistent with the Cluster

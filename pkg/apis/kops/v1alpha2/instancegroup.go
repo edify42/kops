@@ -101,6 +101,8 @@ type InstanceGroupSpec struct {
 	Kubelet *KubeletConfigSpec `json:"kubelet,omitempty"`
 	// Taints indicates the kubernetes taints for nodes in this group
 	Taints []string `json:"taints,omitempty"`
+	// FleetSpec is an optional fleet specification for the instancegroup
+	FleetSpec *InstanceGroupFleetSpec `json:"fleetSpec,omitempty"`
 	// AdditionalUserData is any additional user-data to be passed to the host
 	AdditionalUserData []UserData `json:"additionalUserData,omitempty"`
 	// SuspendProcesses disables the listed Scaling Policies
@@ -113,6 +115,38 @@ type InstanceGroupSpec struct {
 	IAM *IAMProfileSpec `json:"iam,omitempty"`
 	// SecurityGroupOverride overrides the default security group created by Kops for this IG (AWS only).
 	SecurityGroupOverride *string `json:"securityGroupOverride,omitempty"`
+}
+
+// InstanceGroupFleetSpec defines a fleet of instances within a instancegroup
+type InstanceGroupFleetSpec struct {
+	// EC2Fleet defines a ec2 fleet
+	EC2Fleet *EC2FleetSpec `json:"ec2Fleet,omitempty"`
+}
+
+// EC2FleetInstance defined the specificiation for a fleet instance i.e type and weighting
+type EC2FleetInstance struct {
+	// InstanceType is the instance type to use
+	InstanceType string `json:"instanceType,omitempty"`
+}
+
+// EC2FleetSpec defines the specification for a ec2 fleet
+type EC2FleetSpec struct {
+	// InstancesTypes is a list of instance types which we are willing to run in the EC2 fleet
+	InstancesTypes []EC2FleetInstance `json:"instances,omitempty"`
+	// MaxPrice is the maximum Spot price is the maximum price you are willing to pay per
+	// hour per instance for Spot Instances. The default sets the maximum price per Spot
+	// Instance as the On-Demand price.
+	MaxPrice *float64 `json:"maxPrice,omitempty"`
+	// OnDemandBase is percentage split of On-Demand Instances and Spot Instances for your
+	// additional capacity beyond the base portion
+	OnDemandBase *int64 `json:"onDemandBase,omitempty"`
+	// OnDemandAboveBase is the percentage split of On-Demand Instances and Spot Instances
+	// for your additional capacity beyond the base portion.
+	OnDemandAboveBase *int64 `json:"onDemandBase,omitempty"`
+	// SpotAllocationStrategy diversifies your Spot capacity across multiple instance types to
+	// find the best pricing. Higher Spot availability may result from a larger number of
+	// instance types to choose from.
+	SpotAllocationStrategy *int64 `json:"spotAllocationStrategy,omitempty"`
 }
 
 // UserData defines a user-data section

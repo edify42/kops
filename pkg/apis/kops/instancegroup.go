@@ -135,29 +135,30 @@ type InstanceGroupFleetSpec struct {
 	EC2Fleet *EC2FleetSpec `json:"ec2Fleet,omitempty"`
 }
 
+// EC2FleetInstance defined the specificiation for a fleet instance i.e type and weighting
+type EC2FleetInstance struct {
+	// InstanceType is the instance type to use
+	InstanceType string `json:"instanceType,omitempty"`
+}
+
 // EC2FleetSpec defines the specification for a ec2 fleet
 type EC2FleetSpec struct {
-	// AllocationStrategy is the EC2 allocation strategy
-	AllocationStrategy *string `json:"allocationStrategy,omitempty"`
-	// Distribution is instance distribution specifies the allocation of On-Demand Instances
-	// and Spot Instances, the maximum price for Spot that you are willing to pay, and the
-	// strategy for diversifying Spot Instances across the instance types specified above.
-	Distribution string `json:"distribution,omitempty"`
-	// Instances is distribution specifies the allocation of On-Demand Instances and Spot Instances
-	// the maximum price for Spot that you are willing to pay, and the strategy for diversifying
-	// Spot Instances across the instance types specified above.
-	Instances []string `json:"instances,omitempty"`
+	// InstancesTypes is a list of instance types which we are willing to run in the EC2 fleet
+	InstancesTypes []EC2FleetInstance `json:"instances,omitempty"`
 	// MaxPrice is the maximum Spot price is the maximum price you are willing to pay per
 	// hour per instance for Spot Instances. The default sets the maximum price per Spot
 	// Instance as the On-Demand price.
-	MaxPrice *string `json:"maxPrice,omitempty"`
+	MaxPrice *float64 `json:"maxPrice,omitempty"`
 	// OnDemandBase is percentage split of On-Demand Instances and Spot Instances for your
 	// additional capacity beyond the base portion
-	OnDemandBase *int `json:"onDemandBase,omitempty"`
+	OnDemandBase *int64 `json:"onDemandBase,omitempty"`
+	// OnDemandAboveBase is the percentage split of On-Demand Instances and Spot Instances
+	// for your additional capacity beyond the base portion.
+	OnDemandAboveBase *int64 `json:"onDemandBase,omitempty"`
 	// SpotAllocationStrategy diversifies your Spot capacity across multiple instance types to
 	// find the best pricing. Higher Spot availability may result from a larger number of
 	// instance types to choose from.
-	SpotAllocationStrategy *int `json:"spotAllocationStrategy,omitempty"`
+	SpotAllocationStrategy *int64 `json:"spotAllocationStrategy,omitempty"`
 }
 
 // UserData defines a user-data section
