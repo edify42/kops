@@ -17,21 +17,23 @@ limitations under the License.
 package awstasks
 
 import (
+	"k8s.io/kops/upup/pkg/fi"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/autoscaling"
 	"github.com/aws/aws-sdk-go/service/ec2"
-	"k8s.io/kops/upup/pkg/fi"
 )
 
+// BlockDeviceMapping represents a device mapping
 type BlockDeviceMapping struct {
-	VirtualName *string
-
 	EbsDeleteOnTermination *bool
+	EbsVolumeIops          *int64
 	EbsVolumeSize          *int64
 	EbsVolumeType          *string
-	EbsVolumeIops          *int64
+	VirtualName            *string
 }
 
+// BlockDeviceMappingFromEC2 returns a block device from a ec2 block device mapping
 func BlockDeviceMappingFromEC2(i *ec2.BlockDeviceMapping) (string, *BlockDeviceMapping) {
 	o := &BlockDeviceMapping{}
 	o.VirtualName = i.VirtualName
@@ -43,6 +45,7 @@ func BlockDeviceMappingFromEC2(i *ec2.BlockDeviceMapping) (string, *BlockDeviceM
 	return aws.StringValue(i.DeviceName), o
 }
 
+// ToEC2 converts the device block mapping to a ec2 definition
 func (i *BlockDeviceMapping) ToEC2(deviceName string) *ec2.BlockDeviceMapping {
 	o := &ec2.BlockDeviceMapping{}
 	o.DeviceName = aws.String(deviceName)
@@ -64,6 +67,7 @@ func BlockDeviceMappingFromAutoscaling(i *autoscaling.BlockDeviceMapping) (strin
 		o.EbsVolumeSize = i.Ebs.VolumeSize
 		o.EbsVolumeType = i.Ebs.VolumeType
 	}
+
 	return aws.StringValue(i.DeviceName), o
 }
 
@@ -78,6 +82,36 @@ func (i *BlockDeviceMapping) ToAutoscaling(deviceName string) *autoscaling.Block
 		o.Ebs.VolumeSize = i.EbsVolumeSize
 		o.Ebs.VolumeType = i.EbsVolumeType
 		o.Ebs.Iops = i.EbsVolumeIops
+	}
+
+	return o
+}
+
+// BlockDeviceMappingFromLaunchTemplateBootDeviceRequest coverts the launch template device mappings to an interval block device mapping
+func BlockDeviceMappingFromLaunchTemplateBootDeviceRequest(i *ec2.LaunchTemplateBlockDeviceMappingRequest) (string, *BlockDeviceMapping) {
+	o := &BlockDeviceMapping{}
+	o.VirtualName = i.VirtualName
+	if i.Ebs != nil {
+		o.EbsDeleteOnTermination = i.Ebs.DeleteOnTermination
+		o.EbsVolumeSize = i.Ebs.VolumeSize
+		o.EbsVolumeType = i.Ebs.VolumeType
+	}
+
+	return aws.StringValue(i.DeviceName), o
+}
+
+// ToLaunchTemplateBootDeviceRequest coverts in the internal block device mapping to a launcg template request
+func (i *BlockDeviceMapping) ToLaunchTemplateBootDeviceRequest(deviceName string) *ec2.LaunchTemplateBlockDeviceMappingRequest {
+	o := &ec2.LaunchTemplateBlockDeviceMappingRequest{}
+	o.DeviceName = aws.String(deviceName)
+	o.VirtualName = i.VirtualName
+	if i.EbsDeleteOnTermination != nil || i.EbsVolumeSize != nil || i.EbsVolumeType != nil || i.EbsVolumeIops != nil {
+		o.Ebs = &ec2.LaunchTemplateEbsBlockDeviceRequest{
+			DeleteOnTermination: i.EbsDeleteOnTermination,
+			VolumeSize:          i.EbsVolumeSize,
+			VolumeType:          i.EbsVolumeType,
+			Iops:                i.EbsVolumeIops,
+		}
 	}
 
 	return o
