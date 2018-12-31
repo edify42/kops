@@ -47,7 +47,7 @@ type AutoscalingGroupModelBuilder struct {
 
 var _ fi.ModelBuilder = &AutoscalingGroupModelBuilder{}
 
-// Build is responsible for filling the in the aws tasks required to buikd the ASG's
+// Build is responsible for filling the in the aws tasks required to build the ASG's
 func (b *AutoscalingGroupModelBuilder) Build(c *fi.ModelBuilderContext) error {
 	for _, ig := range b.InstanceGroups {
 		name := b.AutoscalingGroupName(ig)
